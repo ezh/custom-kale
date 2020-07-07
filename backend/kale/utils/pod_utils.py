@@ -24,8 +24,8 @@ import kubernetes.config as k8s_config
 from kale.utils.utils import encode_url_component
 from kale.utils import kfp_utils
 
-ROK_CSI_STORAGE_CLASS = "rok"
-ROK_CSI_STORAGE_PROVISIONER = "rok.arrikto.com"
+ROK_CSI_STORAGE_CLASS = "geneva-cephfs-testing"
+ROK_CSI_STORAGE_PROVISIONER = "cephfs.csi.ceph.com
 
 NAMESPACE_PATH = "/var/run/secrets/kubernetes.io/serviceaccount/namespace"
 
@@ -134,8 +134,10 @@ def _list_volumes(client, namespace, pod_name, container_name):
             raise RuntimeError(msg)
 
         ann = pvc.metadata.annotations
-        provisioner = ann.get("volume.beta.kubernetes.io/storage-provisioner",
-                              None)
+        #provisioner = ann.get("volume.beta.kubernetes.io/storage-provisioner",
+        #                      None)
+                              
+        provisioner = ann.get("storage.k8s.io/v1", None)
         if provisioner != ROK_CSI_STORAGE_PROVISIONER:
             msg = ("Found PVC storage provisioner '%s'. Only storage"
                    " provisioner '%s' is supported."
@@ -145,6 +147,9 @@ def _list_volumes(client, namespace, pod_name, container_name):
         mount_path = _get_mount_path(container, volume)
         volume_size = parse_k8s_size(pvc.spec.resources.requests["storage"])
         rok_volumes.append((mount_path, volume, volume_size))
+
+    with open('volumes_file.txt', 'w') as the_file:
+        the_file.write(str(rok_volumes))
 
     return rok_volumes
 
