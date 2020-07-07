@@ -134,8 +134,8 @@ def _list_volumes(client, namespace, pod_name, container_name):
             raise RuntimeError(msg)
 
         ann = pvc.metadata.annotations
-        # provisioner = ann.get("volume.beta.kubernetes.io/storage-provisioner",
-        #                      None)
+        # provisioner = ann.get(
+        #           "volume.beta.kubernetes.io/storage-provisioner", None)
                               
         provisioner = ann.get("storage.k8s.io/v1", None)
         if provisioner != ROK_CSI_STORAGE_PROVISIONER:
