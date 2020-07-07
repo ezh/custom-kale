@@ -25,7 +25,7 @@ from kale.utils.utils import encode_url_component
 from kale.utils import kfp_utils
 
 ROK_CSI_STORAGE_CLASS = "geneva-cephfs-testing"
-ROK_CSI_STORAGE_PROVISIONER = "cephfs.csi.ceph.com
+ROK_CSI_STORAGE_PROVISIONER = "cephfs.csi.ceph.com"
 
 NAMESPACE_PATH = "/var/run/secrets/kubernetes.io/serviceaccount/namespace"
 
