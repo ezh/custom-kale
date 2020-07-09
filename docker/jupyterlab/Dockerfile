@@ -46,8 +46,7 @@ WORKDIR /home/jovyan
 RUN apt-get install apt-transport-https \
         ca-certificates \
         curl \
-        gnupg-agent \
-        software-properties-common && \
+        gnupg-agent && \
     add-apt-repository \
         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) \
