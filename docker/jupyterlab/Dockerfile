@@ -42,18 +42,6 @@ RUN echo "jovyan ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/jovyan
 WORKDIR /home/jovyan
 # USER jovyan
 
-# Install Docker
-RUN apt-get install apt-transport-https \
-        ca-certificates \
-        curl \
-        gnupg-agent && \
-    add-apt-repository \
-        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-        $(lsb_release -cs) \
-        stable" && \
-    apt-get update && \
-    apt-get install docker-ce docker-ce-cli containerd.io
-
 CMD ["sh", "-c", \
      "jupyter lab --notebook-dir=/home/jovyan --ip=0.0.0.0 --no-browser \
       --allow-root --port=8888 --LabApp.token='' --LabApp.password='' \
