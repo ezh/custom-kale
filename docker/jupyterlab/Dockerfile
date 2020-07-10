@@ -40,7 +40,11 @@ RUN pip3 install --upgrade pip && \
 
 RUN echo "jovyan ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/jovyan
 WORKDIR /home/jovyan
-# USER jovyan
+USER jovyan
+
+# Requirements
+COPY requirements/katib-example-requirements.txt /tmp/requirements.txt
+RUN pip3 install /tmp/requirements.txt
 
 CMD ["sh", "-c", \
      "jupyter lab --notebook-dir=/home/jovyan --ip=0.0.0.0 --no-browser \
