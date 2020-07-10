@@ -38,13 +38,13 @@ RUN pip3 install --upgrade pip && \
     pip3 install -U kubeflow-kale && \
     jupyter labextension install kubeflow-kale-labextension
 
-RUN echo "jovyan ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/jovyan
-WORKDIR /home/jovyan
-USER jovyan
-
 # Requirements
 COPY requirements/katib-example-requirements.txt /tmp/requirements.txt
 RUN pip3 install /tmp/requirements.txt
+
+RUN echo "jovyan ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/jovyan
+WORKDIR /home/jovyan
+USER jovyan
 
 CMD ["sh", "-c", \
      "jupyter lab --notebook-dir=/home/jovyan --ip=0.0.0.0 --no-browser \
